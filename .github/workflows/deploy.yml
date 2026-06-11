@@ -40,7 +40,7 @@ jobs:
       - name: Build
         env:
           VITE_BASE_PATH: /${{ github.event.repository.name }}/
-          VITE_MARKETING_REMOTE_URL: https://${{ github.repository_owner }}.github.io/admin-marketing/assets/remoteEntry.js
+          VITE_MF_MANIFEST_URL: https://${{ github.repository_owner }}.github.io/admin-marketing/mf-manifest.json
         run: pnpm build
 
       - name: Setup SPA fallback
