@@ -55,6 +55,8 @@ const nextConfig = {
   ...(basePath && { basePath, assetPrefix: basePath }),
   env: {
     NEXT_PUBLIC_BASE_PATH: basePath,
+    NEXT_PUBLIC_MARKETING_REMOTE_ENTRY: process.env.NEXT_PUBLIC_MARKETING_REMOTE_ENTRY ?? '',
+    NEXT_PUBLIC_MARKETING_STYLES_PATH: process.env.NEXT_PUBLIC_MARKETING_STYLES_PATH ?? '',
   },
   images: {
     unoptimized: true,

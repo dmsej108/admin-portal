@@ -1,29 +1,11 @@
-import { useEffect } from 'react'
-import { getEnabledRemotes } from '@/lib/config/mf.registry'
+import { useLayoutEffect } from 'react'
+import { REMOTE_STYLE_URLS } from '@/lib/config/remoteStyles'
 
 const loadedStyles = new Set<string>()
 
-function resolveRemoteStylesUrl(remoteKey: string): string | undefined {
-  const entry = getEnabledRemotes().find((item) => item.key === remoteKey)
-  if (!entry?.stylesPathEnvKey) return undefined
-
-  const stylesPath = process.env[entry.stylesPathEnvKey]
-  if (!stylesPath) return undefined
-
-  const remoteEntry = process.env[entry.remoteEntryEnvKey]
-  if (!remoteEntry) return stylesPath
-
-  try {
-    const origin = new URL(remoteEntry).origin
-    return `${origin}${stylesPath.startsWith('/') ? stylesPath : `/${stylesPath}`}`
-  } catch {
-    return stylesPath
-  }
-}
-
 export function useRemoteStyles(remote: string) {
-  useEffect(() => {
-    const href = resolveRemoteStylesUrl(remote)
+  useLayoutEffect(() => {
+    const href = REMOTE_STYLE_URLS[remote]
     if (!href || loadedStyles.has(href)) return
 
     const link = document.createElement('link')
