@@ -2,36 +2,35 @@
   "name": "admin-portal",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "dev": "cross-env NEXT_PRIVATE_LOCAL_WEBPACK=true next dev -p 3000",
+    "build": "cross-env NEXT_PRIVATE_LOCAL_WEBPACK=true next build",
+    "postbuild": "node scripts/prepare-gh-pages.mjs",
+    "start": "cross-env NEXT_PRIVATE_LOCAL_WEBPACK=true next start -p 3000",
+    "lint": "next lint"
   },
   "dependencies": {
     "@dmsej108/design-system": "^2.3.1",
+    "@module-federation/nextjs-mf": "8.8.56",
     "@tanstack/react-query": "^5.101.0",
-    "react": "^19.2.6",
-    "react-dom": "^19.2.6",
-    "react-router-dom": "^7.17.0",
-    "zustand": "^5.0.14"
+    "next": "14.2.35",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "zustand": "^5.0.14",
+    "webpack": "5.90.0"
   },
   "devDependencies": {
-    "@eslint/js": "^10.0.1",
-    "@originjs/vite-plugin-federation": "^1.4.1",
     "@types/node": "^24.12.3",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^4.7.0",
-    "eslint": "^10.3.0",
-    "eslint-plugin-react-hooks": "^7.1.1",
-    "eslint-plugin-react-refresh": "^0.5.2",
-    "globals": "^17.6.0",
-    "sass": "^1.100.0",
-    "typescript": "~6.0.2",
-    "typescript-eslint": "^8.59.2",
-    "vite": "^6.4.3",
-    "vite-plugin-svgr": "^5.2.0"
+    "@types/react": "^18.3.28",
+    "@types/react-dom": "^18.3.7",
+    "cross-env": "^7.0.3",
+    "eslint": "^9.28.0",
+    "eslint-config-next": "14.2.35",
+    "typescript": "~5.8.3"
+  },
+  "pnpm": {
+    "overrides": {
+      "enhanced-resolve": "5.15.0"
+    }
   }
 }

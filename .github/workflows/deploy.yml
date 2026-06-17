@@ -39,19 +39,18 @@ jobs:
 
       - name: Build
         env:
-          VITE_BASE_PATH: /${{ github.event.repository.name }}/
-          VITE_MF_MARKETING_MANIFEST_URL: https://${{ github.repository_owner }}.github.io/admin-marketing/mf-manifest.json
-          # VITE_MF_PERSONAL_MANIFEST_URL: https://${{ github.repository_owner }}.github.io/admin-personal/mf-manifest.json
-          # VITE_MF_COMMON_MANIFEST_URL: https://${{ github.repository_owner }}.github.io/admin-common/mf-manifest.json
+          NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
+          NEXT_PUBLIC_MARKETING_REMOTE_ENTRY: https://${{ github.repository_owner }}.github.io/admin-marketing/_next/static/chunks/remoteEntry.js
+          NEXT_PUBLIC_MARKETING_STYLES_PATH: /admin-marketing/styles/admin.css
         run: pnpm build
 
-      - name: Setup SPA fallback
-        run: cp dist/index.html dist/404.html
+      - name: Prepare GH Pages artifact
+        run: node scripts/prepare-gh-pages.mjs
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: ./out
 
   deploy:
     needs: build
